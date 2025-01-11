@@ -59,14 +59,9 @@ userSchema.static(
         const salt = user.salt;
         const hashedPassword = user.password;
 
-        console.log("user ", user);
-
         const userProvidedHah = createHmac("sha256", salt)
             .update(password)
             .digest("hex");
-
-        console.log(userProvidedHah);
-        console.log(hashedPassword);
 
         if (userProvidedHah !== hashedPassword)
             throw new Error('Incorrect Password');

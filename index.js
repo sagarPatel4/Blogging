@@ -3,15 +3,17 @@ const path = require("path")
 const mongoose = require("mongoose")
 const cookieParser=require("cookie-parser")
 
+const Blog = require('./models/blog')
 const userRouter = require("./routes/user")
 const blogRouter = require("./routes/blog")
 
 const { 
      checkForAuthenticationCookie 
 } = require("./middlewares/authentication")
-const { blob } = require("stream/consumers")
 
 const app = express();
+app.use(express.static(path.resolve('./public')))
+
 const PORT = 8000;
 
 mongoose
@@ -27,9 +29,11 @@ app.use(cookieParser())
 app.use(checkForAuthenticationCookie("token"))
 
 
-app.get('/', (req, res) => {
+app.get('/', async(req, res) => {
+     const allBlogs =await Blog.find({});
      res.render('home',{
           user:req.user,
+          blog:allBlogs
      });
 });
 

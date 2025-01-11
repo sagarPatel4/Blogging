@@ -7,6 +7,8 @@ router.post('/signin', async (req, res) => {
     const { email, password } = req.body;
     try {
         const token = await User.matchPasswordAndGenerateToken(email, password);
+        console.log(token);
+        
         return res.cookie("token", token).redirect("/")
     } catch (error) {
         console.log(error);

@@ -16,10 +16,8 @@ const blogSchema = new Schema({
     createBy: {
         type: Schema.Types.ObjectId,
         ref: 'user'
-    },
-}, {
-    timeseries: true
-}
+    }
+}, {timestamps: true}
 )
 
 const Blog=model("blog",blogSchema)
